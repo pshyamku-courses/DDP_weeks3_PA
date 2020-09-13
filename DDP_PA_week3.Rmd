@@ -5,7 +5,7 @@ date: '9/13/2020'
 output: 
   ioslides_presentation: 
     smaller: yes
-    keep_md: yes
+    keep_md: no
 ---
 
 ```{r setup, include=FALSE}
@@ -88,6 +88,6 @@ q4 <- ggplotly(ggplot(data = red_wine,
 ## Interactive Plot {.smaller}
 
 ```{r echo=TRUE, fig.align='center'}
-subplot(q1,q2,q3,q4, titleX = TRUE, titleY = TRUE, nrows = 2, margin = 0.07)
+subplot(q1,q2,q3,q4, titleX = TRUE, titleY = TRUE, nrows = 2, margin = 0.09)
 ```
 
