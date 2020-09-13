@@ -1,0 +1,93 @@
+---
+title: "UCI Wine Quality"
+author: "pshyamku-courses"
+date: "9/13/2020"
+output: 
+  ioslides_presentation: 
+    smaller: yes
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+	warning = FALSE,
+	cache = TRUE,
+	tidy = TRUE,
+	tidy.opts = list(width.cutoff = 60))
+```
+
+## Objectives {.smaller}
+
+- Create a web page presentation using R Markdown that features a plot created with Plotly. 
+- Host your webpage on either GitHub Pages, RPubs, or NeoCities. 
+- The webpage must contain the date that you created the document, and it must contain a plot created with Plotly.
+
+**Chosen Data Source**
+
+We will be exploring the wine quality data set from the UCI Machine Learning Repository <http://archive.ics.uci.edu/ml/datasets/Wine+Quality>
+Two datasets are included. They are related to red and white variants of the Portuguese "Vinho Verde" wine. 
+
+*References*
+P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
+Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
+
+## Data Attribute Information: {.smaller}
+**Input variables (based on physicochemical tests):**
+
+- fixed acidity, volatile acidity, citric acid
+- residual sugar
+- chlorides
+- free sulfur dioxide, total sulfur dioxide
+- density
+- pH
+- sulphates
+- alcohol
+
+**Output variable (based on sensory data):**
+
+- quality (score between 0 and 10)
+
+Lets load the Red wine data
+```{r echo = FALSE, results='hide', }
+suppressWarnings(library(plotly, verbose = FALSE))
+suppressWarnings(library(ggplot2, verbose = FALSE))
+```
+```{r echo = TRUE}
+red_wine <- read.csv(file = './Data/winequality-red.csv', header = TRUE, sep = ';')
+```
+
+## R Code to generate plots {.smaller}
+We will explore a small subset of attributes and the impact on quality of the wine.
+
+```{r wine, echo = TRUE}
+q1 <- ggplotly(ggplot(data = red_wine, 
+                      aes(x = sulphates, y = pH, color = quality)) +
+                 geom_point() +
+  scale_color_gradientn(colours = rainbow(5)) + 
+  labs( x = "Sulphates", y = "pH", color = "Quality Rating")) 
+q2 <- ggplotly(ggplot(data = red_wine, 
+                      aes(x = residual.sugar, y = citric.acid, color = quality)) + 
+                 geom_point() +
+  scale_color_gradientn(colours = rainbow(5)) + 
+  labs( x = "Residual Sugar", y = "Cirtic Acid", color = "Quality Rating"))
+q3 <- ggplotly(ggplot(data = red_wine, 
+                      aes(x = chlorides, y = total.sulfur.dioxide,
+                          color = quality)) +
+                 geom_point() +
+  scale_color_gradientn(colours = rainbow(5)) + 
+  labs( x = "Chlorides", y = "Total Sulfur Dioxide", color = "Quality Rating"))
+q4 <- ggplotly(ggplot(data = red_wine, 
+                      aes(x = alcohol, y = density, color = quality)) + 
+                 geom_point() +
+  scale_color_gradientn(colours = rainbow(5))+ 
+  labs( x = "Alcohol content", y = "Density", color = "Quality Rating"))
+```
+
+## Interactive Plot {.smaller}
+
+```{r echo=TRUE, fig.align='center'}
+subplot(q1,q2,q3,q4, titleX = TRUE, titleY = TRUE, nrows = 2, margin = 0.07)
+```
+
