@@ -1,7 +1,7 @@
 ---
 title: "UCI Wine Quality"
 author: "pshyamku-courses"
-date: "9/13/2020"
+date: '9/13/2020'
 output: 
   ioslides_presentation: 
     smaller: yes
